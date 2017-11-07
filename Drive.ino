@@ -9,8 +9,8 @@ void driveR(int factor){ //factor moet tussen .8 en 1 liggen omdat de standaarwa
   digitalWrite(RA,HIGH);
   digitalWrite(RB,LOW);
   while(millis() - currentMillis <= 2000){
-  analogWrite(SNA,255*factor);
-  analogWrite(SNB,200);
+  analogWrite(SNA,255);
+  analogWrite(SNB,255*factor);
    }
   }
 
@@ -19,8 +19,8 @@ void driveL(int factor){
   digitalWrite(RA,HIGH);
   digitalWrite(RB,LOW);
   while(millis() - currentMillis <= 2000){
-  analogWrite(SNA,200);
-  analogWrite(SNB,255*factor);
+  analogWrite(SNA,255*factor);
+  analogWrite(SNB,255);
    }
   }
 
