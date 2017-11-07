@@ -4,7 +4,7 @@
 #define RB 13
 unsigned long currentMillis;
 
-void driveR(int factor){ //factor moet tussen .8 en 1 liggen omdat de standaarwaarde 200 gekozen is (anders zou hij naar verkeerde richting draaien)
+void driveR(int factor){
   currentMillis = millis();
   digitalWrite(RA,HIGH);
   digitalWrite(RB,LOW);
