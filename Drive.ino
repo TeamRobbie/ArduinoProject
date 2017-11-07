@@ -4,43 +4,43 @@
 #define RB 13
 unsigned long currentMillis;
 
-void driveR(){
+void driveR(int factor){ //factor moet tussen .8 en 1 liggen omdat de standaarwaarde 200 gekozen is (anders zou hij naar verkeerde richting draaien)
   currentMillis = millis();
   digitalWrite(RA,HIGH);
   digitalWrite(RB,LOW);
   while(millis() - currentMillis <= 2000){
-  analogWrite(SNA,100);
-  analogWrite(SNB,70);
+  analogWrite(SNA,255*factor);
+  analogWrite(SNB,200);
    }
   }
 
-void driveL(){
+void driveL(int factor){
   currentMillis = millis();
   digitalWrite(RA,HIGH);
   digitalWrite(RB,LOW);
   while(millis() - currentMillis <= 2000){
-  analogWrite(SNA,70);
-  analogWrite(SNB,100);
+  analogWrite(SNA,200);
+  analogWrite(SNB,255*factor);
    }
   }
 
-void driveF(){
+void driveF(int factor){
   currentMillis = millis();
   digitalWrite(RA,HIGH);
   digitalWrite(RB,LOW);
   while(millis() - currentMillis <= 2000){
-  analogWrite(SNA,100);
-  analogWrite(SNB,100);
+  analogWrite(SNA,255*factor);
+  analogWrite(SNB,255*factor);
    }
   }
 
-void driveB(){
+void driveB(int factor){
   currentMillis = millis();
   digitalWrite(RA,LOW);
   digitalWrite(RB,HIGH);
   while(millis() - currentMillis <= 2000){
-  analogWrite(SNA,100);
-  analogWrite(SNB,100);
+  analogWrite(SNA,255*factor);
+  analogWrite(SNB,255*factor);
    }
   }
 
@@ -52,14 +52,23 @@ void setup() {
 
 }
 
-void loop() {
-  driveL();
-  delay(500);
-  driveR();
-  delay(500);
-  driveF();
-  delay(500);
-  driveB();
-  delay(500);
+void loop() { //testen van de factor van .8 naar 1 (trail and error)
+  driveL(0.8);
+  delay(1000);
+  driveL(0.85);
+  delay(1000);
+  driveL(0.9);
+  delay(1000);
+  driveL(1);
+
+  delay(1000);
+
+  driveR(0.8);
+  delay(1000);
+  driveR(0.85);
+  delay(1000);
+  driveR(0.9);
+  delay(1000);
+  driveR(1);
 
 }
