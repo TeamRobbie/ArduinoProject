@@ -2,7 +2,13 @@
 #define RA 12
 #define SNB 11
 #define RB 13
+#define UTURN 0.5
+#define HARD 0.6
+#define MED 0.7
+#define SOFT 0.9
 unsigned long currentMillis;
+
+ 
 
 void driveR(int factor){
   currentMillis = millis();
@@ -52,23 +58,33 @@ void setup() {
 
 }
 
-void loop() { //testen van de factor van .8 naar 1 (trail and error)
-  driveL(0.8);
+void loop() { //testen van de factor (trail and error, aan te passen bovenaan bestand)
+  driveL(UTURN);
   delay(1000);
-  driveL(0.85);
+  driveL(HARD);
   delay(1000);
-  driveL(0.9);
+  driveL(MED);
   delay(1000);
-  driveL(1);
+  driveL(SOFT);
 
-  delay(1000);
+  delay(2000);
 
-  driveR(0.8);
+  driveR(UTURN);
   delay(1000);
-  driveR(0.85);
+  driveR(HARD);
   delay(1000);
-  driveR(0.9);
+  driveR(MED);
   delay(1000);
-  driveR(1);
+  driveR(SOFT);
+
+  delay(2000);
+
+  driveF(UTURN);
+  delay(1000);
+  driveF(HARD);
+  delay(1000);
+  driveF(MED);
+  delay(1000);
+  driveF(SOFT);
 
 }
