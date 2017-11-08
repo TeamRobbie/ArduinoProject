@@ -1,0 +1,267 @@
+EESchema Schematic File Version 2
+LIBS:components
+LIBS:Arduino_Uno_R3_From_Scratch-rescue
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:l298
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:Arduino_Uno_R3_From_Scratch
+LIBS:MFN_Atmel
+LIBS:MFN_STMicro
+LIBS:Arduino_Uno_R3_From_Scratch-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 6 6
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L L298 U?
+U 1 1 5A036D45
+P 4100 2600
+F 0 "U?" H 4300 3450 60  0000 C CNN
+F 1 "L298" H 3950 3450 60  0000 C CNN
+F 2 "footprints:POWERSO20" H 4100 3700 60  0001 C CNN
+F 3 "" H 4300 3450 60  0000 C CNN
+F 4 "digikey" H 4100 3800 60  0001 C CNN "Vendor"
+F 5 "497-3624-1-ND" H 4100 3900 60  0001 C CNN "PartNumber"
+F 6 "IC BRIDGE DRIVER PAR 20POWERSO" H 4100 4000 60  0001 C CNN "Description"
+	1    4100 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Vin #PWR?
+U 1 1 5A036DF3
+P 4800 1450
+F 0 "#PWR?" H 4800 1540 20  0001 C CNN
+F 1 "Vin" H 4800 1570 30  0000 C CNN
+F 2 "" H 4800 1450 60  0000 C CNN
+F 3 "" H 4800 1450 60  0000 C CNN
+	1    4800 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L diode_schottky_40V_1A D1
+U 1 1 5A036E0C
+P 4800 1950
+F 0 "D1" H 4750 2030 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 4520 1870 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 4650 1930 60  0001 C CNN
+F 3 "" H 4750 2030 60  0001 C CNN
+F 4 "digikey" H 4850 2130 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 4950 2230 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5050 2330 60  0001 C CNN "Description"
+	1    4800 1950
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D2
+U 1 1 5A036F46
+P 4800 2750
+F 0 "D2" H 4750 2830 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 4520 2670 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 4650 2730 60  0001 C CNN
+F 3 "" H 4750 2830 60  0001 C CNN
+F 4 "digikey" H 4850 2930 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 4950 3030 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5050 3130 60  0001 C CNN "Description"
+	1    4800 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D3
+U 1 1 5A036FCC
+P 5000 2050
+F 0 "D3" H 4950 2130 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 4720 1970 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 4850 2030 60  0001 C CNN
+F 3 "" H 4950 2130 60  0001 C CNN
+F 4 "digikey" H 5050 2230 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 5150 2330 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5250 2430 60  0001 C CNN "Description"
+	1    5000 2050
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D4
+U 1 1 5A0370AF
+P 5000 2750
+F 0 "D4" H 4950 2830 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 4720 2670 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 4850 2730 60  0001 C CNN
+F 3 "" H 4950 2830 60  0001 C CNN
+F 4 "digikey" H 5050 2930 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 5150 3030 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5250 3130 60  0001 C CNN "Description"
+	1    5000 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D5
+U 1 1 5A037127
+P 5200 2150
+F 0 "D5" H 5150 2230 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 4920 2070 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 5050 2130 60  0001 C CNN
+F 3 "" H 5150 2230 60  0001 C CNN
+F 4 "digikey" H 5250 2330 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 5350 2430 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5450 2530 60  0001 C CNN "Description"
+	1    5200 2150
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D6
+U 1 1 5A0371E2
+P 5200 2750
+F 0 "D6" H 5150 2830 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 4920 2670 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 5050 2730 60  0001 C CNN
+F 3 "" H 5150 2830 60  0001 C CNN
+F 4 "digikey" H 5250 2930 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 5350 3030 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5450 3130 60  0001 C CNN "Description"
+	1    5200 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D7
+U 1 1 5A037259
+P 5400 2250
+F 0 "D7" H 5350 2330 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 5120 2170 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 5250 2230 60  0001 C CNN
+F 3 "" H 5350 2330 60  0001 C CNN
+F 4 "digikey" H 5450 2430 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 5550 2530 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5650 2630 60  0001 C CNN "Description"
+	1    5400 2250
+	0    1    1    0   
+$EndComp
+$Comp
+L diode_schottky_40V_1A D8
+U 1 1 5A037316
+P 5400 2750
+F 0 "D8" H 5350 2830 50  0000 L CNN
+F 1 "diode_schottky_40V_1A" H 5120 2670 50  0001 L CNN
+F 2 "footprints:DO-214AC(SMA)" H 5250 2730 60  0001 C CNN
+F 3 "" H 5350 2830 60  0001 C CNN
+F 4 "digikey" H 5450 2930 60  0001 C CNN "Vendor"
+F 5 "SS14CT-ND" H 5550 3030 60  0001 C CNN "PartNumber"
+F 6 "DIODE SCHOTTKY 40V 1A SMA" H 5650 3130 60  0001 C CNN "Description"
+	1    5400 2750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4450 2050 5850 2050
+Connection ~ 4800 2050
+Wire Wire Line
+	4450 2150 5850 2150
+Connection ~ 5000 2150
+Wire Wire Line
+	4450 2250 5850 2250
+Connection ~ 5200 2250
+Wire Wire Line
+	4450 2350 5850 2350
+Connection ~ 5400 2350
+Wire Wire Line
+	4800 2050 4800 2650
+Wire Wire Line
+	5000 2150 5000 2650
+Wire Wire Line
+	5200 2250 5200 2650
+Wire Wire Line
+	5400 2350 5400 2650
+$Comp
+L GNDD #PWR?
+U 1 1 5A0375DE
+P 4800 2850
+F 0 "#PWR?" H 4800 2600 50  0001 C CNN
+F 1 "GNDD" H 4800 2725 50  0000 C CNN
+F 2 "" H 4800 2850 50  0001 C CNN
+F 3 "" H 4800 2850 50  0001 C CNN
+	1    4800 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDD #PWR?
+U 1 1 5A03760D
+P 5000 2850
+F 0 "#PWR?" H 5000 2600 50  0001 C CNN
+F 1 "GNDD" H 5000 2725 50  0000 C CNN
+F 2 "" H 5000 2850 50  0001 C CNN
+F 3 "" H 5000 2850 50  0001 C CNN
+	1    5000 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDD #PWR?
+U 1 1 5A03763C
+P 5200 2850
+F 0 "#PWR?" H 5200 2600 50  0001 C CNN
+F 1 "GNDD" H 5200 2725 50  0000 C CNN
+F 2 "" H 5200 2850 50  0001 C CNN
+F 3 "" H 5200 2850 50  0001 C CNN
+	1    5200 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDD #PWR?
+U 1 1 5A03766B
+P 5400 2850
+F 0 "#PWR?" H 5400 2600 50  0001 C CNN
+F 1 "GNDD" H 5400 2725 50  0000 C CNN
+F 2 "" H 5400 2850 50  0001 C CNN
+F 3 "" H 5400 2850 50  0001 C CNN
+	1    5400 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 1450 4800 1850
+Wire Wire Line
+	4800 1450 5400 1450
+Wire Wire Line
+	5000 1450 5000 1950
+Wire Wire Line
+	5200 1450 5200 2050
+Connection ~ 5200 2050
+Connection ~ 5000 1450
+Wire Wire Line
+	5400 1450 5400 2150
+Connection ~ 5400 2150
+Connection ~ 5200 1450
+$EndSCHEMATC
