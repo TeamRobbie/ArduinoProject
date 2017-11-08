@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:components
 LIBS:Arduino_Uno_R3_From_Scratch-rescue
 LIBS:power
 LIBS:device
@@ -6,6 +7,7 @@ LIBS:transistors
 LIBS:conn
 LIBS:linear
 LIBS:regul
+LIBS:l298
 LIBS:74xx
 LIBS:cmos4000
 LIBS:adc-dac
@@ -37,7 +39,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 5
+Sheet 3 6
 Title "Arduino UNO R3 Clone"
 Date "8 oct 2015"
 Rev "0"
