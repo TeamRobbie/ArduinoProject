@@ -12,6 +12,7 @@ void setup() {
 }
 
 void loop() {
+  /* test code voor drive
   drive.drive('F',MED);
   delay(500);
   drive.drive('B',MED);
@@ -20,4 +21,17 @@ void loop() {
   delay(500);
   drive.drive('R',MED);
   delay(500);
+  */
+
+  drive.driveScale(150,0);
+  delay(1000);
+  drive.driveScale(150,-100);
+  delay(1000);
+  drive.driveScale(150,100);
+  delay(1000);
+  drive.driveScale(150,-50);
+  delay(1000);
+  drive.driveScale(150,50);
+  delay(1000);
+
 }

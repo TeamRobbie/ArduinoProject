@@ -20,7 +20,7 @@ Drive::Drive(int rA, int rB, int snA, int snB){
 void Drive::drive(char sel, int factor){
 	_currentMillis = millis();
   	switch(sel){
-    
+
     		case 'F':
       			_factorA = factor;
       			_factorB = factor - (factor/10);
@@ -69,4 +69,33 @@ void Drive::drive(char sel, int factor){
     	}
   	analogWrite(_snA,0);
   	analogWrite(_snB,0);
+}
+
+void Drive::driveScale(int snelheid, int schaal) {
+	_currentMillis = millis();
+	//Functie met schaalfactor van -100 tot 100, -100=volledig links, 0=rechtdoor, 100=volledig rechts
+	digitalWrite(_rA,HIGH);
+	digitalWrite(_rB,LOW);
+	switch(schaal) {
+		case -100 ... -1:
+			while(millis() - _currentMillis <= 2000) {
+			analogWrite(_snA, snelheid - snelheid * abs(schaal)/100);
+			analogWrite(_snB, snelheid);
+			}
+			break;
+		case 0:
+			while(millis() - _currentMillis <= 2000) {
+			analogWrite(_snA, snelheid);
+			analogWrite(_snB, snelheid);
+			}
+			break;
+		case 1 ... 100:
+			while(millis() - _currentMillis <= 2000) {
+			analogWrite(_snA, snelheid);
+			analogWrite(_snB, snelheid - snelheid * schaal/100);
+			}
+			break;
+	}
+	analogWrite(_snA,0);
+	analogWrite(_snB,0);
 }

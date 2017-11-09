@@ -12,6 +12,7 @@ class Drive{
 	public:
 		Drive(int rA, int rB, int snA, int snB);
 		void drive(char sel, int factor);
+		void driveScale(int snelheid, int schaal);
 	private:
 		unsigned long _currentMillis;
 		int _factorA;
