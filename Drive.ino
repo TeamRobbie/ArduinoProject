@@ -2,12 +2,13 @@
 #define RA 12
 #define SNB 11
 #define RB 13
-#define UTURN 128
-#define HARD 153
-#define MED 179
-#define SOFT 230
+#define XTREME 255
+#define HARD 200
+#define MED 150
+#define SOFT 100
 unsigned long currentMillis;
-int factorB;
+int factorA, factorB;
+char sel;
 
 
 void donut(int factor){
@@ -22,51 +23,62 @@ void donut(int factor){
   analogWrite(SNB,0);
   } 
 
-void driveR(int factor){
+void drive(char sel, int factor){
   currentMillis = millis();
-  digitalWrite(RA,HIGH);
-  digitalWrite(RB,LOW);
-  while(millis() - currentMillis <= 2000){
-    analogWrite(SNA,100);
-    analogWrite(SNB,factor);
-   }
+  switch(sel){
+    
+    case 'F':
+      factorA = factor;
+      factorB = factor - 20;
+      digitalWrite(RA,HIGH);
+      digitalWrite(RB,LOW);
+      while(millis() - currentMillis <= 700 && factorB >=0){
+        analogWrite(SNB,factorB);
+        //delay(10); //linkerwiel startte steeds iets sneller dan rechterwiel
+        analogWrite(SNA,factorA);
+      }
+      break;
+
+    case 'L': //factor moet hier minstents 50 zijn
+      factorA = factor - (factor/4);
+      factorB = factor;
+      digitalWrite(RA,HIGH);
+      digitalWrite(RB,LOW);
+      while(millis() - currentMillis <= 700){
+        analogWrite(SNA,factorA);
+        analogWrite(SNB,factorB);
+      }
+      break;
+
+    case 'R': //factor moet hier minstens 50 zijn
+      factorA = factor;
+      factorB = factor - (factor/4);
+      digitalWrite(RA,HIGH);
+      digitalWrite(RB,LOW);
+      while(millis() - currentMillis <= 700){
+        analogWrite(SNA,factorA);
+        analogWrite(SNB,factorB);
+      }
+      break;
+
+    case 'B':
+      factorA = factor;
+      factorB = factor - 20;
+      digitalWrite(RA,LOW);
+      digitalWrite(RB,HIGH);
+      while(millis() - currentMillis <= 700 && factorB >=0){
+        analogWrite(SNB,factorB);
+        //delay(10); //linkerwiel startte steeds iets sneller dan rechterwiel
+        analogWrite(SNA,factorA);
+      }
+      break;
+    }
   analogWrite(SNA,0);
   analogWrite(SNB,0);
-  }
-
-void driveL(int factor){
-  currentMillis = millis();
-  digitalWrite(RA,HIGH);
-  digitalWrite(RB,LOW);
-  while(millis() - currentMillis <= 2000){
-    analogWrite(SNA,factor);
-    analogWrite(SNB,100);
+  
+ 
    }
-  analogWrite(SNA,0);
-  analogWrite(SNB,0);
-  }
-
-void driveF(int factorA){
-  currentMillis = millis();
-  factorB = factorA - 10;
-  digitalWrite(RA,HIGH);
-  digitalWrite(RB,LOW);
-  while(millis() - currentMillis <= 10 && factorB >=0){
-  analogWrite(SNB,factorB);
-  delay(10); //linkerwiel startte steeds iets sneller dan rechterwiel
-  analogWrite(SNA,factorA);
-   }
-  }
-
-void driveB(int factor){
-  currentMillis = millis();
-  digitalWrite(RA,LOW);
-  digitalWrite(RB,HIGH);
-  while(millis() - currentMillis <= 1000){
-  analogWrite(SNA,255*factor);
-  analogWrite(SNB,255*factor);
-   }
-  }
+  
 
 void setup() {
   pinMode(SNA,OUTPUT);
@@ -81,7 +93,15 @@ void loop() { //testen van de factor (trail and error, aan te passen bovenaan be
     driveF(i);
     delay(50);
     } */
-donut(UTURN);
-delay(500);
+drive('F',SOFT);
+delay(800);
+drive('L',SOFT);
+delay(800);
+drive('R',SOFT);
+delay(800);
+drive('B',SOFT);
+delay(800);
+
+
 
 }
