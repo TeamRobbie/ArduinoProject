@@ -1,0 +1,8 @@
+*.pyc
+*.swp
+*.sandbox.config
+.cabal-sandbox
+*.a
+*.o
+dist/
+target/

@@ -3,8 +3,8 @@
 	Jonas Bolle & Jorik De Bruycker
 */
 
-#ifndef Morse_h
-#define Morse_h
+#ifndef Drive_h
+#define Drive_h
 
 #include "Arduino.h"
 
