@@ -7,6 +7,8 @@
 #include "Drive.h"
 
 Drive::Drive(int rA, int rB, int snA, int snB){
+	//_rA bepaalt de richting van de linkse motor, 0= vooruit, 1 = achteruit
+	//_rB bepaalt de richting van de rechtse moto, 1 = vooruit, 0 = achteruit
 	pinMode(rA,OUTPUT);
 	pinMode(rB,OUTPUT);
 	pinMode(snA,OUTPUT);
@@ -18,6 +20,7 @@ Drive::Drive(int rA, int rB, int snA, int snB){
 }
 
 void Drive::drive(char sel, int factor){
+	//Voorlopig nog veel gefoefel in methode afhankelijk van verschil op motoren bij testen, te verbeteren
 	_currentMillis = millis();
   	switch(sel){
 
@@ -72,30 +75,26 @@ void Drive::drive(char sel, int factor){
 }
 
 void Drive::driveScale(int snelheid, int schaal) {
-	_currentMillis = millis();
 	//Functie met schaalfactor van -100 tot 100, -100=volledig links, 0=rechtdoor, 100=volledig rechts
-	digitalWrite(_rA,HIGH);
-	digitalWrite(_rB,LOW);
+	digitalWrite(_rA,LOW);
+	digitalWrite(_rB,HIGH);
 	switch(schaal) {
 		case -100 ... -1:
-			while(millis() - _currentMillis <= 2000) {
 			analogWrite(_snA, snelheid - snelheid * abs(schaal)/100);
 			analogWrite(_snB, snelheid);
-			}
 			break;
 		case 0:
-			while(millis() - _currentMillis <= 2000) {
 			analogWrite(_snA, snelheid);
 			analogWrite(_snB, snelheid);
-			}
 			break;
 		case 1 ... 100:
-			while(millis() - _currentMillis <= 2000) {
 			analogWrite(_snA, snelheid);
 			analogWrite(_snB, snelheid - snelheid * schaal/100);
-			}
 			break;
 	}
-	analogWrite(_snA,0);
-	analogWrite(_snB,0);
+}
+
+void Drive::driveCorrectieLR(int snelheid, int correctie) {
+	analogWrite(_snA, snelheid + correctie);
+	analogWrite(_snB, snelheid - correctie);
 }

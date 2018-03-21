@@ -9,5 +9,5 @@ void setup() {
 void loop() {
   int waarde = analogRead(IRSensor);
   Serial.println(waarde);
-
+  delay(500);
 }

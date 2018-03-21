@@ -3,8 +3,8 @@
 	Jonas Bolle & Jorik De Bruycker
 */
 
-#ifndef Drive_h
-#define Drive_h
+#ifndef Morse_h
+#define Morse_h
 
 #include "Arduino.h"
 
@@ -13,6 +13,7 @@ class Drive{
 		Drive(int rA, int rB, int snA, int snB);
 		void drive(char sel, int factor);
 		void driveScale(int snelheid, int schaal);
+		void driveCorrectieLR(int snelheid, int correctie);
 	private:
 		unsigned long _currentMillis;
 		int _factorA;

@@ -1,6 +1,6 @@
-#define IRSensorSelect0 1
+#define IRSensorSelect0 3
 #define IRSensorSelect1 2
-#define IRSensorSelect2 3
+#define IRSensorSelect2 1
 #define IRSensor A1
 
 
@@ -41,10 +41,17 @@ void loop() {
   digitalWrite(IRSensorSelect2,HIGH);
   int s5 = analogRead(IRSensor);
 
-  Serial.println(s1);
-  Serial.println(s2);
-  Serial.println(s3);
-  Serial.println(s4);
+  Serial.print(s1);
+  Serial.print('\t');
+  Serial.print(s2);
+  Serial.print('\t');
+  Serial.print(s3);
+  Serial.print('\t');
+  Serial.print(s4);
+  Serial.print('\t');
   Serial.println(s5);
+  Serial.println();
+  delay(1000);
+  
 
 }
