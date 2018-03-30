@@ -25,8 +25,9 @@ void HallSensoren::readSensors() {
 }
 
 void HallSensoren::calculateSpeed() {
-  if(millis() % 10000 == 0) {
-    float deltaX = _count*3.14*7/100/2;
+  if(millis() % 10000 < 2) {
+    //Aantal keer gepasseerd *pi *diameter / 2 / 4 magneten
+    float deltaX = _count*3.14*7/100/2/2;
     float deltaT = 10;
     Serial.print("Aantal keer gepasseerd:  ");
     Serial.println(_count);

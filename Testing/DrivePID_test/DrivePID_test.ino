@@ -12,35 +12,35 @@
 #define IRSensorSelect0 6
 #define IRSensorSelect1 5
 #define IRSensorSelect2 4
-#define IRSensorOut A1
+#define IRSensorOutMidden A1
+#define IRSensorOutZij A0
+
 
 //Hall-Sensor
 #define hallSensorRead 7
 
 Drive drive(richtingA,richtingB,snelheidA,snelheidB);
 
-IRSensoren IRsensors(IRSensorSelect0, IRSensorSelect1, IRSensorSelect2, IRSensorOut);
+IRSensoren IRsensors(IRSensorSelect0, IRSensorSelect1, IRSensorSelect2, IRSensorOutMidden, IRSensorOutZij);
 
 HallSensoren hallSensor(hallSensorRead);
 
-int speed = 255;
+int speed = 60;
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   digitalWrite(richtingA,LOW);
   digitalWrite(richtingB,HIGH);
 }
 
 void loop() {
   IRsensors.readSensors();
-  IRsensors.digitaliseer(250);
-  //sensors.printWaardes();
-  //sensors.printDigitaleWaardes();
+  IRsensors.digitaliseer(300);
+  //IRsensors.printWaardes();
+  //IRsensors.printDigitaleWaardes();
   //delay(500);
-  int factor = 0;
-  //int factor = IRsensors.berekenPID();
-  //drive.driveScale(90, factor);
+  int factor = IRsensors.berekenPID();
   drive.driveCorrectieLR(speed,speed*factor/100);
-  hallSensor.readSensors();
-  hallSensor.calculateSpeed();
+  //hallSensor.readSensors();
+  //hallSensor.calculateSpeed();
 
 }

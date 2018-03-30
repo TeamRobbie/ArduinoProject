@@ -11,7 +11,7 @@
 class IRSensoren{
 	public:
 		//Constructor
-		IRSensoren(int s0, int s1, int s2, int analogIn);
+		IRSensoren(int s0, int s1, int s2, int analogInMidden, int analogInZij);
 
 		//Methodes
 		void readSensors();
@@ -20,17 +20,28 @@ class IRSensoren{
 		void digitaliseer(int grens);
 		int berekenPID();
 	private:
+		//Attributen
+
 		// Channel select bits
 		int _s0;
   	int _s1;
   	int _s2;
 		// Analog read channel
-  	int _analogIn;
+  	int _analogInMidden;
+		int _analogInZij;
 		// Ingelezen en verwerkte waardes
-    int * _waardes;
-		int * _digitaleWaardes;
+    int * _waardesMidden;
+		int * _digitaleWaardesMidden;
+		int * _waardesZij;
+		int * _digitaleWaardesZij;
 		// Fout en PID-waardes
-		int _aantalHoog;
+		int _aantalHoogLinks;
+		int _aantalHoogMidden;
+		int _aantalHoogRechts;
+		int _KP;
+		int _KI;
+		int _KD;
+		int _factor;
 		int _error;
 		int _vorigeError;
 		int _P;
