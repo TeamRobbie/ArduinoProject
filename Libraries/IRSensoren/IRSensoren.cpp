@@ -32,10 +32,6 @@ IRSensoren::IRSensoren(int s0, int s1, int s2, int analogInMidden, int analogInZ
 	_aantalHoogLinks = 0;
 	_aantalHoogMidden = 0;
 	_aantalHoogRechts = 0;
-	//PID-constanten
-	_KP = 7;
-	_KI = 0;
-	_KD = 10;
 	_factor = 0;
 	_P = 0;
 	_I = 0;
@@ -137,7 +133,7 @@ void IRSensoren::digitaliseer(int grens){
 	}
 }
 
-int IRSensoren::berekenPID(){
+int IRSensoren::berekenPID(int KP, int KI, int KD){
 	/*Deze methode berekent de fout ten opzichte van de middenlijn
 	Te veel naar links geeft negatieve fout
 	Te veel naar rechts geeft een positieve fout
@@ -183,7 +179,7 @@ int IRSensoren::berekenPID(){
 	_D = _error - _vorigeError;
 	_I = constrain(_I, -10, 10);
 
-	_factor =  _KP * _P + _KI * _I + _KD * _D;
+	_factor =  KP * _P + KI * _I + KD * _D;
 	_factor = constrain(_factor, -100, 100);
 	return _factor;
 }

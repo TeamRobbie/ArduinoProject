@@ -38,11 +38,14 @@ int data = 0;
 //Objecten
 //Drive
 Drive drive(richtingA,richtingB,snelheidA,snelheidB);
-int speed = 60;
+int speed;
 
 //Sensoren
 IRSensoren IRsensors(IRSensorSelect0, IRSensorSelect1, IRSensorSelect2, IRSensorOutMidden, IRSensorOutZij);
 HallSensoren hallSensor(hallSensorRead);
+int KP;
+int KI;
+int KD;
 
 //RFID-reader
 PN532_I2C pn532i2c(Wire);
@@ -61,17 +64,18 @@ void setup() {
   digitalWrite(richtingB,HIGH);
 
   BluetoothSerial.begin(9600);
+  BluetoothSerial.println(-1);
   BluetoothSerial.println("Opgestart");
 
   nfc.begin();
 
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
-    BluetoothSerial.print("Didn't find PN53x board");
+    BluetoothSerial.println("Didn't find PN53x board");
   }
 
   // Got ok data, print it out!
-  BluetoothSerial.print("Found chip PN5"); BluetoothSerial.println((versiondata>>24) & 0xFF, HEX); 
+  BluetoothSerial.print("RFID-lezer gevonden: PN5"); BluetoothSerial.println((versiondata>>24) & 0xFF, HEX); 
   BluetoothSerial.print("Firmware ver. "); BluetoothSerial.print((versiondata>>16) & 0xFF, DEC); 
   BluetoothSerial.print('.'); BluetoothSerial.println((versiondata>>8) & 0xFF, DEC);
   
@@ -82,14 +86,34 @@ void setup() {
   
   // configure board to read RFID tags
   nfc.SAMConfig();
-    
+
+  BluetoothSerial.println("Wachten op snelheid...");
+  while(BluetoothSerial.available()<=0);
+  speed = BluetoothSerial.parseInt();
+
+  BluetoothSerial.println("Wachten op KP-waarde...");
+  while(BluetoothSerial.available()<=0);
+  KP = BluetoothSerial.parseInt();
+  
+  BluetoothSerial.println("Wachten op KI-waarde...");
+  while(BluetoothSerial.available()<=0);
+  KI = BluetoothSerial.parseInt();
+  
+  BluetoothSerial.println("Wachten op KD-waarde...");
+  while(BluetoothSerial.available()<=0);
+  KD = BluetoothSerial.parseInt();
+
+  BluetoothSerial.print("We vertrekken met snelheid = ");BluetoothSerial.print(speed);
+  BluetoothSerial.print("; KP = ");BluetoothSerial.print(KP);
+  BluetoothSerial.print("; KI = ");BluetoothSerial.print(KI);
+  BluetoothSerial.print(" en KD = ");BluetoothSerial.println(KD);    
   
 }
 
 void loop() {
   IRsensors.readSensors();
   IRsensors.digitaliseer(300);
-  int factor = IRsensors.berekenPID();
+  int factor = IRsensors.berekenPID(KP,KI,KD);
   drive.driveCorrectieLR(speed,speed*factor/100);
   hallSensor.readSensors();
   hallSensor.printSpeed(BluetoothSerial);

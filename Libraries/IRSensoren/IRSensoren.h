@@ -18,7 +18,7 @@ class IRSensoren{
 		void printWaardes();
 		void printDigitaleWaardes();
 		void digitaliseer(int grens);
-		int berekenPID();
+		int berekenPID(int KP, int KI, int KD);
 	private:
 		//Attributen
 
@@ -38,9 +38,6 @@ class IRSensoren{
 		int _aantalHoogLinks;
 		int _aantalHoogMidden;
 		int _aantalHoogRechts;
-		int _KP;
-		int _KI;
-		int _KD;
 		int _factor;
 		int _error;
 		int _vorigeError;
