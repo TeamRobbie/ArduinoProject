@@ -8,6 +8,8 @@
 #include <PN532_I2C.h>
 #include <PN532.h>
 #include <NfcAdapter.h>
+//Library voor seriële Bluetooth-communicatie
+#include<SoftwareSerial.h>
 
 //Motorsturing-pinnen
 #define richtingA 12
@@ -24,6 +26,13 @@
 
 //Hall-Sensor-pinnen
 #define hallSensorRead 2
+
+//RFID lezer gebruikt pinnen A4 SDA en A5 SCL
+
+//Bluetooth
+#define BTRXpin 7
+#define BTTXpin 8
+int data = 0;
 
 
 //Objecten
@@ -44,25 +53,30 @@ boolean nieuweKaart = true;
 uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
 uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
 
+//Bluetooth
+SoftwareSerial BluetoothSerial(BTRXpin,BTTXpin);
 
 void setup() {
   Serial.begin(9600);
   digitalWrite(richtingA,LOW);
   digitalWrite(richtingB,HIGH);
 
-  Serial.println("We starten op");
+  BluetoothSerial.begin(9600);
+  BluetoothSerial.println("Opgestart");
+  
+  Serial.println("We starten de RFID-lezer op");
 
   nfc.begin();
 
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
-    Serial.print("Didn't find PN53x board");
+    BluetoothSerial.print("Didn't find PN53x board");
   }
 
   // Got ok data, print it out!
-  Serial.print("Found chip PN5"); Serial.println((versiondata>>24) & 0xFF, HEX); 
-  Serial.print("Firmware ver. "); Serial.print((versiondata>>16) & 0xFF, DEC); 
-  Serial.print('.'); Serial.println((versiondata>>8) & 0xFF, DEC);
+  BluetoothSerial.print("Found chip PN5"); BluetoothSerial.println((versiondata>>24) & 0xFF, HEX); 
+  BluetoothSerial.print("Firmware ver. "); BluetoothSerial.print((versiondata>>16) & 0xFF, DEC); 
+  BluetoothSerial.print('.'); BluetoothSerial.println((versiondata>>8) & 0xFF, DEC);
   
   // Set the max number of retry attempts to read from a card
   // This prevents us from waiting forever for a card, which is
@@ -85,20 +99,20 @@ void loop() {
   //drive.driveCorrectieLR(speed,speed*factor/100);
   //drive.driveCorrectieLR(120,0);
   hallSensor.readSensors();
-  hallSensor.calculateSpeed();
+  hallSensor.printSpeed(BluetoothSerial);
   
   if(millis() % 100 < 2) {
     success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, &uid[0], &uidLength, timeout);
     if (success && nieuweKaart) {
       nieuweKaart = false;
-      Serial.println("Found a card!");
-      Serial.print("UID Length: ");Serial.print(uidLength, DEC);Serial.println(" bytes");
-      Serial.print("UID Value: ");
+      BluetoothSerial.println("Found a card!");
+      BluetoothSerial.print("UID Length: ");BluetoothSerial.print(uidLength, DEC);BluetoothSerial.println(" bytes");
+      BluetoothSerial.print("UID Value: ");
       for (uint8_t i=0; i < uidLength; i++) 
       {
-        Serial.print(uid[i], HEX);Serial.print(" "); 
+        BluetoothSerial.print(uid[i], HEX);BluetoothSerial.print(" "); 
       }
-      Serial.println("");
+      BluetoothSerial.println("");
     }
     else if(!success && !nieuweKaart){
       nieuweKaart = true;
