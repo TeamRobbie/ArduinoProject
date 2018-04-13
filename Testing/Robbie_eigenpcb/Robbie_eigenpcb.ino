@@ -60,18 +60,19 @@ uint8_t uidLength;                        // Length of the UID (4 or 7 bytes dep
 SoftwareSerial BluetoothSerial(BTRXpin,BTTXpin);
 
 void setup() {
+  BluetoothSerial.begin(9600);
+  BluetoothSerial.println("--------------------------------------------------");
+  BluetoothSerial.println("Bluetooth-communicatie opgestart; setup uitvoeren...");
+  
   digitalWrite(richtingA,LOW);
   digitalWrite(richtingB,HIGH);
 
-  BluetoothSerial.begin(9600);
-  BluetoothSerial.println(-1);
-  BluetoothSerial.println("Opgestart");
 
   nfc.begin();
 
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
-    BluetoothSerial.println("Didn't find PN53x board");
+    BluetoothSerial.println("PN53x-RFID-lezer niet gevonden");
   }
 
   // Got ok data, print it out!
@@ -87,6 +88,8 @@ void setup() {
   // configure board to read RFID tags
   nfc.SAMConfig();
 
+  BluetoothSerial.println(-1); //token naar RPi om prompt te starten
+  
   BluetoothSerial.println("Wachten op snelheid...");
   while(BluetoothSerial.available()<=0);
   speed = BluetoothSerial.parseInt();
@@ -114,7 +117,8 @@ void loop() {
   IRsensors.readSensors();
   IRsensors.digitaliseer(300);
   int factor = IRsensors.berekenPID(KP,KI,KD);
-  drive.driveCorrectieLR(speed,speed*factor/100);
+  //drive.driveCorrectieLR(speed,speed*factor/100);
+  drive.driveScale(speed,factor);
   hallSensor.readSensors();
   hallSensor.printSpeed(BluetoothSerial);
   
@@ -122,9 +126,9 @@ void loop() {
     success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, &uid[0], &uidLength, timeout);
     if (success && nieuweKaart) {
       nieuweKaart = false;
-      BluetoothSerial.println("Found a card!");
-      BluetoothSerial.print("UID Length: ");BluetoothSerial.print(uidLength, DEC);BluetoothSerial.println(" bytes");
-      BluetoothSerial.print("UID Value: ");
+      BluetoothSerial.println("RFID-tag gevonden!");
+      BluetoothSerial.print("UID Lengte: ");BluetoothSerial.print(uidLength, DEC);BluetoothSerial.println(" bytes");
+      BluetoothSerial.print("UID waarde: ");
       for (uint8_t i=0; i < uidLength; i++) 
       {
         BluetoothSerial.print(uid[i], HEX);BluetoothSerial.print(" "); 

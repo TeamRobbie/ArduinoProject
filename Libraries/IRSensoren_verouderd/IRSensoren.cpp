@@ -152,32 +152,26 @@ int IRSensoren::berekenPID(int KP, int KI, int KD){
 	}
 	*/
 
-	//Linksvoor
+	//Linkerarm
 	_aantalHoogLinks = 0;
 	for(int i = 0; i<=3; i++) {
 		if(_digitaleWaardesZij[i] == 1) _aantalHoogLinks++;
 	}
-	//Linksachter
+	if(_aantalHoogLinks != 0) {
+		//_error +=2*(2*_digitaleWaardesZij[0]+4*_digitaleWaardesZij[1]+6*_digitaleWaardesZij[2]+8*_digitaleWaardesZij[3])/_aantalHoogLinks;
+		_error +=(1*_digitaleWaardesZij[0]+3*_digitaleWaardesZij[1]+5*_digitaleWaardesZij[2]+7*_digitaleWaardesZij[3])/_aantalHoogLinks;
+
+	}
+
+	//Rechterarm
 	_aantalHoogRechts = 0;
 	for(int i = 4; i<=7; i++) {
 		if(_digitaleWaardesZij[i] == 1) _aantalHoogRechts++;
 	}
-
-	if(_aantalHoogLinks != 0 && _aantalHoogRechts != 0) {
-		//Linksvoor
-		_error +=(-3*_digitaleWaardesZij[0]-1*_digitaleWaardesZij[1]+1*_digitaleWaardesZij[2]+3*_digitaleWaardesZij[3])/_aantalHoogLinks;
-		//Linksachter
-		_error +=(3*_digitaleWaardesZij[7]+1*_digitaleWaardesZij[6]-1*_digitaleWaardesZij[5]-3*_digitaleWaardesZij[4])/_aantalHoogRechts;
+	if(_aantalHoogRechts != 0) {
+		//_error +=2*(-2*_digitaleWaardesZij[7]-4*_digitaleWaardesZij[6]-6*_digitaleWaardesZij[5]-8*_digitaleWaardesZij[4])/_aantalHoogRechts;
+		_error +=(-1*_digitaleWaardesZij[7]-3*_digitaleWaardesZij[6]-5*_digitaleWaardesZij[5]-7*_digitaleWaardesZij[4])/_aantalHoogRechts;
 	}
-	else {
-		if(_vorigeError < 0) {
-			_error = _vorigeError - 1;
-		}
-		else if (_vorigeError > 0) {
-			_error = _vorigeError + 1;
-		}
-	}
-
 
 
 	_P = _error;

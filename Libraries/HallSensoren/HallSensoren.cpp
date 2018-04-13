@@ -32,7 +32,7 @@ void HallSensoren::printSpeed(SoftwareSerial bt) {
     //Aantal keer gepasseerd *pi *diameter / 2 2 magneten
     float deltaX = _count*3.14*7/100/2/2;
     float deltaT = 10;
-    bt.print("Aantal keer gepasseerd:  ");
+    bt.print("Aantal magneten gepasseerd:  ");
     bt.println(_count);
     _count = 0;
     _speed = deltaX / deltaT;
