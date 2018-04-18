@@ -29,8 +29,8 @@ void HallSensoren::readSensors() {
 void HallSensoren::printSpeed(SoftwareSerial bt) {
   if(millis() % 10000 > 1000) _geprint = false;
   if(millis() % 10000 < 10 && !_geprint) {
-    //Aantal keer gepasseerd *pi *diameter / 2 2 magneten
-    float deltaX = _count*3.14*7/100/2/2;
+    //Aantal keer gepasseerd *pi *diameter / 2 magneten
+    float deltaX = _count*3.14*7/100/2;
     float deltaT = 10;
     bt.print("Aantal magneten gepasseerd:  ");
     bt.println(_count);

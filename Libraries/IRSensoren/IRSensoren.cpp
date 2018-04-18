@@ -5,6 +5,7 @@
 
 #include "Arduino.h"
 #include "IRSensoren.h"
+#include "SoftwareSerial.h"
 
 IRSensoren::IRSensoren(int s0, int s1, int s2, int analogInMidden, int analogInZij){
 	//pinMode declarations
@@ -81,48 +82,51 @@ void IRSensoren::readSensors(){
 	_waardesZij[4] = analogRead(_analogInZij);
 }
 
-void IRSensoren::printWaardes(){
+void IRSensoren::printWaardes(SoftwareSerial bt){
 	/* Deze methode kan gebruikt worden bij het testen om de waardes te monitoren
 	met behulp van de seriele monitor */
-	for(int i=0; i < 8; i++) {
+	/*for(int i=0; i < 8; i++) {
 		Serial.print(_waardesMidden[i]);
 		Serial.print('\t');
 	}
-	Serial.println();
+	Serial.println();*/
 	for(int i=0; i < 8; i++) {
-		Serial.print(_waardesZij[i]);
-		Serial.print('\t');
+		bt.print(_waardesZij[i]);
+		bt.print('\t');
 	}
-	Serial.println();
-	Serial.println("----------------------------------------------");
+	bt.println();
+	bt.println("----------------------------------------------");
 }
 
-void IRSensoren::printDigitaleWaardes(){
+void IRSensoren::printDigitaleWaardes(SoftwareSerial bt){
 	/* Deze methode kan gebruikt worden bij het testen om de digitale waardes te
 	monitoren met behulp van de seriele monitor */
-	for(int i=0; i < 8; i++) {
-		Serial.print(_digitaleWaardesMidden[i]);
-		Serial.print('\t');
+	/*for(int i=0; i < 8; i++) {
+		bt.print(_digitaleWaardesMidden[i]);
+		bt.print('\t');
 	}
-	Serial.println();
+	bt.println();*/
 	for(int i=0; i < 8; i++) {
-		Serial.print(_digitaleWaardesZij[i]);
-		Serial.print('\t');
+		bt.print(_digitaleWaardesZij[i]);
+		bt.print('\t');
 	}
-	Serial.println();
-	Serial.println("----------------------------------------------");
+	bt.println();
+	bt.println("----------------------------------------------");
 }
 
 void IRSensoren::digitaliseer(int grens){
 	/*Deze methode zet de analoog ingelezen waardes om in digitale waardes
 	afhankelijk van een meegegeven grens */
+
 	for(int i=0; i< 8; i++) {
+		/*
 		if(_waardesMidden[i] > grens) {
 			_digitaleWaardesMidden[i] = 0;
 		}
 		else {
 			_digitaleWaardesMidden[i] = 1;
 		}
+		*/
 
 		if(_waardesZij[i] > grens) {
 			_digitaleWaardesZij[i] = 0;
@@ -163,22 +167,21 @@ int IRSensoren::berekenPID(int KP, int KI, int KD){
 		if(_digitaleWaardesZij[i] == 1) _aantalHoogRechts++;
 	}
 
-	if(_aantalHoogLinks != 0 && _aantalHoogRechts != 0) {
+	if(_aantalHoogLinks != 0) {
 		//Linksvoor
 		_error +=(-3*_digitaleWaardesZij[0]-1*_digitaleWaardesZij[1]+1*_digitaleWaardesZij[2]+3*_digitaleWaardesZij[3])/_aantalHoogLinks;
+		_errorVooraan = _error;
 		//Linksachter
 		_error +=(3*_digitaleWaardesZij[7]+1*_digitaleWaardesZij[6]-1*_digitaleWaardesZij[5]-3*_digitaleWaardesZij[4])/_aantalHoogRechts;
 	}
 	else {
-		if(_vorigeError < 0) {
+		if(_errorVooraan < 0) {
 			_error = _vorigeError - 1;
 		}
-		else if (_vorigeError > 0) {
+		else if (_errorVooraan > 0) {
 			_error = _vorigeError + 1;
 		}
 	}
-
-
 
 	_P = _error;
 	_I = _I + _error;

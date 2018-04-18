@@ -116,6 +116,7 @@ void setup() {
 void loop() {
   IRsensors.readSensors();
   IRsensors.digitaliseer(300);
+  //IRsensors.printWaardes(BluetoothSerial);
   int factor = IRsensors.berekenPID(KP,KI,KD);
   //drive.driveCorrectieLR(speed,speed*factor/100);
   drive.driveScale(speed,factor);

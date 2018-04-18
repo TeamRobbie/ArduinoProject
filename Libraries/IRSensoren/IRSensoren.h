@@ -7,6 +7,7 @@
 #define IRSensoren_h
 
 #include "Arduino.h"
+#include "SoftwareSerial.h"
 
 class IRSensoren{
 	public:
@@ -15,8 +16,8 @@ class IRSensoren{
 
 		//Methodes
 		void readSensors();
-		void printWaardes();
-		void printDigitaleWaardes();
+		void printWaardes(SoftwareSerial bt);
+		void printDigitaleWaardes(SoftwareSerial bt);
 		void digitaliseer(int grens);
 		int berekenPID(int KP, int KI, int KD);
 	private:
@@ -40,6 +41,7 @@ class IRSensoren{
 		int _aantalHoogRechts;
 		int _factor;
 		int _error;
+		int _errorVooraan;
 		int _vorigeError;
 		int _P;
 		int _I;
